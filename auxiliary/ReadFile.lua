@@ -1,4 +1,4 @@
-local ReadOnly = require("ReadOnlyTable")
+local ReadOnly = require("auxiliary.ReadOnlyTable")
 local open   = io.open
 local gmatch = string.gmatch
 local setmetatable = setmetatable
