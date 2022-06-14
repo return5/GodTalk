@@ -20,7 +20,6 @@ local ReadFile <const> = require("auxiliary.ReadFile")
 
 
 local function readLines(n,bible)
-	io.write("God says: \n")
 	local quote <const> = {}
 	for i=n,n + 9,1 do
 		quote[#quote + 1] = bible[i]
@@ -49,17 +48,30 @@ end
 local function clearScreen()
 	io.write("\x1B[2J")
 	io.write("\r")
+	io.write("\x1B[H")
+end
+
+local function printQuote(quote)
+	clearScreen()
+	io.write("God says: \n")
+	io.write(quote)
+end
+
+local function clearPropmptLine()
+	io.write("\x1B[3A")
+	io.write("\x1B[0J")
 end
 
 local function loopRead(bible)
 	local rand <const> = math.random
 	repeat
 		local n <const> = rand(1,#bible - 10)
+		clearScreen()
 		local quote <const> = readLines(n,bible)
-		io.write(quote)
+		printQuote(quote)
 		local response = prompt()
 		if response == "s"  or response == "S" then
-			clearScreen()
+			clearPropmptLine()
 			saveQuote(quote)
 			response = prompt()
 		end
