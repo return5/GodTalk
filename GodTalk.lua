@@ -4,7 +4,7 @@ local ReadFile <const> = require("auxiliary.ReadFile")
 local function readLines(n,bible)
 	io.write("God says: \n")
 	local quote <const> = {}
-	for i=n,n+10,1 do
+	for i=n,n + 9,1 do
 		quote[#quote + 1] = bible[i]
 	end
 	return table.concat(quote,"")
@@ -21,28 +21,31 @@ end
 
 local function saveQuote(quote)
 	io.write("\n please enter name of file to save to. (existing files will be appended to, not over-written.) \n")
-	local fileName = io.read("*l"):match("[^\n\r]+")
-	local file = io.open(fileName ,"a")
+	local fileName <const> = io.read("*l"):match("[^\n\r]+")
+	local file <const> = io.open(fileName ,"a")
 	file:write(quote .. "\n\n")
 	io.write("successfully saved quote to " .. fileName)
 	file:close()
 end
 
 local function clearScreen()
-
+	io.write("\x1B[2J")
+	io.write("\r")
 end
 
 local function loopRead(bible)
-	local rand = math.random
+	local rand <const> = math.random
 	repeat
-		local n = rand(1,#bible)
-		local quote = readLines(n,bible)
+		local n <const> = rand(1,#bible - 10)
+		local quote <const> = readLines(n,bible)
 		io.write(quote)
 		local response = prompt()
 		if response == "s"  or response == "S" then
 			clearScreen()
 			saveQuote(quote)
+			response = prompt()
 		end
+		io.write("\n")
 	until(response == "n" or response == "N")
 end
 
