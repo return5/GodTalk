@@ -29,7 +29,7 @@ end
 --if keyValue is true then file is treated as a list of key value pairs.
 --if text is a list of key,value pairs then keyPat is pattern to find the keys.
 --if text is a list of key,value pairs then valuePat is pattern to find the values.
-function ReadFile:new(filePath,pat,readOnly,keyValue,keyPat,valuePat)
+local function new(__,filePath,pat,readOnly,keyValue,keyPat,valuePat)
     if not filePath then error("filepath is nil\n") end
     local file = open(filePath,"r")
     if not file then error("could not open file at: "..filePath .. "\n") end
@@ -39,4 +39,4 @@ function ReadFile:new(filePath,pat,readOnly,keyValue,keyPat,valuePat)
 end
 
 
-return setmetatable(ReadFile,{__index = ReadFile,__call = ReadFile.new})
+return setmetatable(ReadFile,{__index = ReadFile,__call = new})
