@@ -10,3 +10,11 @@ you can repeat this as many times as you like. you can also save the output to a
 whether you truly believe that God speaks you through random numbers is entirely up to you to decide for yourself. 
 
 Rest in Peace Terry, you are missed. 
+
+
+
+## API  
+
+this program uses the Random.org API. you can get a free Api Key [here](https://api.random.org/dashboard). Please place your key into 'auxiliary/config.lua'
+
+
