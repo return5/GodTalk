@@ -17,6 +17,8 @@ GodTalk - program which grabs a random line and the following 9 lines from the b
 --]]
 
 local ReadFile <const> = require("auxiliary.ReadFile")
+local RandomNumber <const> = require('model.RandomNumber')
+local Config <const> = require('auxiliary.Config')
 
 
 local function readLines(n,bible)
@@ -63,9 +65,9 @@ local function clearPropmptLine()
 end
 
 local function loopRead(bible)
-	local rand <const> = math.random
+	local rand <const> = RandomNumber:new(bible)
 	repeat
-		local n <const> = rand(1,#bible - 10)
+		local n <const> = rand:getNumber()
 		clearScreen()
 		local quote <const> = readLines(n,bible)
 		printQuote(quote)
@@ -80,7 +82,10 @@ local function loopRead(bible)
 end
 
 local function main()
-	math.randomseed(os.time())
+	if not Config.apiKey or Config.apiKey == "" then
+		io.write("please put you Api Key into 'auxiliary/Config\n")
+		os.exit()
+	end
 	local bible <const> = ReadFile("./auxiliary/bible.txt","[^\n\r]-[\n\r]+",true)
 	loopRead(bible)
 end
